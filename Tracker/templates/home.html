@@ -1,0 +1,36 @@
+<!-- templates/home.html -->
+{% extends 'tracker/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="row" style="position: absolute; right: 15;">
+  {% if user.is_authenticated %}
+  <p><a style="color: #d7dc16; text-decoration: underline;font-size: 13px;letter-spacing: 1;" href="{% url 'logout' %}">Logout</a></p>
+  <p><a style="color: #d7dc16; text-decoration: underline;font-size: 13px;letter-spacing: 1;" href="{% url 'password_reset' %}">Password Reset</a></p>
+  <p><a style="color: #d7dc16; text-decoration: underline;font-size: 13px;letter-spacing: 1;" href="{% url 'tracker_list' %}">Tracker List</a></p>
+  <p><a style="color: #d7dc16; text-decoration: underline;font-size: 13px;letter-spacing: 1;" href="{% url 'Calc_link' %}">Calculator Link</a></p>
+{% endif %}
+
+</div>
+<br />
+
+<div class="row">
+  {% if user.is_authenticated %}
+  <p style="text-align: center;font-size: 25px;font-weight: bold;">
+    Hi, {{ user.username }}!
+</p>
+  {% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+  <!--<p><a href="{% url 'signup' %}">SignUp</a></p>-->
+{% endif %}
+</div>
+
+  <!--<p><a href="{% url 'tracker_list' %}">Tracker_list</a></p>
+  <p><a href="{% url 'post_list' %}">Post_list</a></p>
+  <p><a href="{% url 'password_reset' %}">Password_Reset</a></p>-->
+
+
+{% endblock %}

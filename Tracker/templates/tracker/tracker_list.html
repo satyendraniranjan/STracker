@@ -1,0 +1,86 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<html>
+   <head>
+ <style>
+  table, th, td {
+    border: 1px solid Black;
+    border-collapse: collapse;
+  }
+  th, td {
+  padding: 5px;
+  text-align: left;
+  }
+  table th {
+  background-color: #a3a2da;
+  color: black;
+}
+
+.download_link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+    color: turquoise;
+    text-decoration: underline;
+    }
+  </style>
+  </head>
+  <body>
+
+   <h2 style="text-align: center; font-size: 48px;">Tracker Detail of Today</h2>
+   <a class="download_link" href="{% url 'some_view' %}">Export all users</a>
+<table tr style="width:100%">
+    <tr>
+        <th>Created Date</th>
+        <th>User Name</th>
+        <th>Title</th>
+        <th>Cascade</th>
+        <th>Technology</th>
+        <th>Type</th>
+        <th>Bandwidth Checked From LSM</th>
+        <th>Market</th>
+        <th>eNB/BTS</th>
+        <th>LSM/BSM</th>
+        <th>CSMS</th>
+        <th>FE Name</th>
+        <th>Mode of Communication</th>
+        <th>Activity Status</th>
+        <th>Site Status pre Activity</th>
+        <th>Site Status post Activity</th>
+
+    </tr>
+      {% for item in latest_tracker_list %}
+    <tr>
+
+        <td>{{item.created_date}}</td>
+        {% if user.is_authenticated %}
+        <td><h1><a href="{% url 'tracker_detail' pk=item.pk %}">{{ item.admin }}</a></h1></td>
+        {% endif %}
+        <td>{{ item.title }}</td>
+        <td>{{item.cascade}}</td>
+        <td>{{item.Technology}}</td>
+        <td>{{item.Type}}
+        <td>{{item.Bandwidth_Checked_From_LSM}}</td>
+        <td>{{item.Market}}</td>
+        <td>{{item.eNB}}</td>
+        <td>{{item.LSM}}</td>
+        <td>{{item.CSMS}}</td>
+        <td>{{item.FE_Name}}</td>
+        <td>{{item.Cic_Engineer}}
+        <td>{{item.Activity_status}}</td>
+        <td>{{item.Site_Status_pre_Activity}}</td>
+        <td>{{item.Site_Status_post_Activity}}</td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+</body>
+</html>
+
+{% endblock %}
+<!--
+<a href="{% url 'tracker_detail' pk=item.pk %}">{{ item.admin }}</a>
+  <td><h1><a href="{% url 'tracker_detail' pk=item.pk %}">{{ item.admin }}</a></h1></td>-->
