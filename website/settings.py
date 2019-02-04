@@ -20,14 +20,12 @@ ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'music.apps.MusicConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
     'Tracker',
     'accounts',
 ]
@@ -47,7 +45,7 @@ ROOT_URLCONF = 'website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'Tracker/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,3 +113,13 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+print("base dir path", BASE_DIR)
+
+
+EMAIL_HOST      = 'my-domain.com'
+EMAIL_HOST_PASSWORD = 'my cpanel password'
+EMAIL_HOST_USER = 'my cpanel user'
+EMAIL_PORT      = 25
+EMAIL_USE_TLS   = False
+DEFAULT_FROM_EMAIL  = 'webmaster@my-host.com'
+SERVER_EMAIL    = 'root@my-domain.com'

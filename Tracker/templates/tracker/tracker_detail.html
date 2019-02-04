@@ -4,16 +4,48 @@
     <div class="tracker">
         {% if tracker.created_date %}
             <div class="date">
-                {{ tracker.created_date }}
+                <h2>{{ tracker.created_date }}</h2>
+                <h2>{{ tracker.admin }}</h2>
             </div>
         {% endif %}
-        <h2>{{ tracker.admin }}</h2>
-        <h2>{{ user }}</h2>
-        {% if user.is_authenticated %}
-        {% if user == tracker.admin %}
-        <a class="btn btn-default" href="{% url 'tracker_edit' pk=tracker.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-        {% endif %}
-        {% endif %}
+
+        <div class="row">
+            <div class="col-md-6" style="text-align: center;">
+                <div class="row">
+                    <h2>{{ 'Edit: Only For User' }}</h2>
+                </div>
+                <div class="row">
+                     {% if user.is_authenticated %}
+                     {% if user == tracker.admin %}
+                     <th><a class="btn btn-default" href="{% url 'tracker_edit1' pk=tracker.pk %}"><h2><p>Edit User: <span class="glyphicon glyphicon-pencil"></span></p></h2></a></th>
+                     {% endif %}
+                     {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: center;">
+            <div class="row">
+                    <h2>{{ 'Edit: For Team'}}</h2>
+                </div>
+                <div class="row">
+                     {% if user.is_authenticated %}
+                    <th><a class="btn btn-default" href="{% url 'tracker_edit' pk=tracker.pk %}"><h2><p>Edit Team:<span class="glyphicon glyphicon-pencil"></span></p></h2></a></th>
+                     {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!--<table tr style="width:100%">-->
+    <!--<tr>-->
+        <!--<th></th>-->
+         <!--<th></h2></th>-->
+    <!--</tr></table>-->
+
+            <!--<table tr style="width:100%">-->
+             <!--<tr>-->
+
+
+             <!--</tr>-->
+            <!--</table>-->
         <p>{{ tracker.text|linebreaksbr }}</p>
     </div>
 {% endblock %}

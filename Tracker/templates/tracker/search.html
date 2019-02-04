@@ -1,0 +1,118 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+<form action="{% url 'search' %}" method="GET" value="{{request.GET.q}}">
+Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search cascade"/>
+<input type="submit" name="submit" value="Search"/>
+</form>
+
+   {% if submitbutton == 'Search' and request.GET.q != '' %}
+{% if results %}
+<h1>Results for <b>{{ request.GET.q }}</b></h1>
+<br/><br/>
+
+<style>
+  table, th, td {
+    border: 1px solid Black;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+  }
+  th, td {
+  padding: 5px;
+  text-align: left;
+  }
+  table th {
+  background-color: #FFFFFF;
+  color: black;
+}
+
+.download_link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+    color: turquoise;
+    text-decoration: underline;
+    }
+  </style>
+<table tr style="width:100%">
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>Cascade</th>
+            <th>Technology</th>
+            <th>Type</th>
+            <th>Bandwidth Checked From LSM</th>
+            <th>Market</th>
+            <th>eNB/BTS</th>
+            <th>LSM/BSM</th>
+            <th>Created Date</th>
+            <th>CSMS</th>
+            <th>FE Name</th>
+            <th>Mode of Communication</th>
+            <th>Activity</th>
+            <th>Activity Status</th>
+            <th>Site Status pre Activity</th>
+            <th>Site Status post Activity</th>
+            <th>E-Link Status of BH0 for CDU30</th>
+            <th>MJ Obejct Marked</th>
+            <th>RET</th>
+            <th>Alarms Preventing RET Conf</th>
+            <th>Frequency(EARFCN) Checked From LSM/BSM</th>
+            <th>IP Route/IP Address/VLAN ID Retrieved and Checked for CDU30 2.5</th>
+            <th>VOLTE MME IP Configured</th>
+            <th>Review LATP Complete</th>
+            <th>Remarks</th>
+            <th>OAR Date</th>
+            <th>OAC Date</th>
+            <th>Lock/Unlock Verified BY</th>
+            <th>Verifier Status</th>
+            <th>Final Comments</th>
+
+        </tr>
+    </thead>
+     {% for item in results %}
+
+    <tr>
+
+        <td>{{item.created_date}}</td>
+        <td>{{ item.admin }}</td>
+        <td>{{item.cascade}}</td>
+        <td>{{item.Technology}}</td>
+        <td>{{item.Type}}
+        <td>{{item.Bandwidth_Checked_From_LSM}}</td>
+        <td>{{item.Market}}</td>
+        <td>{{item.eNB}}</td>
+        <td>{{item.LSM}}</td>
+        <td>{{item.CSMS}}</td>
+        <td>{{item.FE_Name}}</td>
+        <td>{{item.Cic_Engineer}}
+        <td>{{item.Activity}}</td>
+        <td>{{item.Activity_status}}</td>
+        <td>{{item.Site_Status_pre_Activity}}</td>
+        <td>{{item.Site_Status_post_Activity}}</td>
+        <td>{{item.E_Link_Status_of_BH0_for_CDU30}}</td>
+        <td>{{item.MJ_Object_Marked}}</td>
+        <td>{{item.RET}}</td>
+        <td>{{item.Alarms_Preventing_RET_Config}}</td>
+        <td>{{item.Frequency_Earfcn_Checked_from_LSM_BSM}}</td>
+        <td>{{item.IP_Route_or_IP_Address}}</td>
+        <td>{{item.Volte_MME_IP_Config}}
+        <td>{{item.Review_LATP_Complete}}</td>
+        <td>{{item.Remarks}}</td>
+        <td>{{item.OAR_Date}}</td>
+        <td>{{item.OAC_Date}}</td>
+        <td>{{item.Lock_Unlock_Verified_By}}
+        <td>{{item.Verify_Status}}</td>
+        <td>{{item.Final_Comments}}</td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+No search results for this query
+{% endif %}
+{% endif %}
+{% endblock %}

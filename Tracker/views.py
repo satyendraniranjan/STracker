@@ -1,4 +1,3 @@
-from .models import Tracker
 from django.shortcuts import redirect
 from .forms import TrackerForm
 from django.utils import timezone
@@ -6,12 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Tracker
 from django.http import HttpResponse
 import csv
-from PyQt4 import QtCore, QtGui
-from django.contrib.auth.models import User
-from django.conf import settings
-from django.contrib.auth.decorators import login_required
-
-
+from django.db.models import Q
 
 def tracker_list(request):
 
@@ -19,7 +13,7 @@ def tracker_list(request):
 #        return render(request, 'registration/login.html')
 #    else:
 #        posts = Tracker.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-        latest_tracker_list = Tracker.objects.order_by('-created_date')[:10]
+        latest_tracker_list = Tracker.objects.order_by('-created_date')[:20]
         context = {
             'latest_tracker_list': latest_tracker_list,
        }
@@ -47,8 +41,23 @@ def tracker_detail(request, pk):
 def tracker_edit(request, pk):
     tracker = get_object_or_404(Tracker, pk=pk)
     if request.method == "POST":
-#        form = TrackerForm(request.POST, instance=post)
         form = TrackerForm(request.POST)
+#        form = TrackerForm(request.POST, instance=tracker)
+        if form.is_valid():
+            tracker = form.save(commit=False)
+            tracker.admin = request.user
+            tracker.created_date = timezone.now()
+            tracker.save()
+            return redirect('tracker_detail', pk=tracker.pk)
+    else:
+        form = TrackerForm(instance=tracker)
+    return render(request, 'tracker/tracker_edit.html', {'form': form})
+
+def tracker_edit1(request, pk):
+    tracker = get_object_or_404(Tracker, pk=pk)
+    if request.method == "POST":
+        form = TrackerForm(request.POST, instance=tracker)
+#        form = TrackerForm(request.POST)
         if form.is_valid():
             tracker = form.save(commit=False)
             tracker.admin = request.user
@@ -77,3 +86,26 @@ def some_view(request):
 def Calc_link(request):
 
     return render(request, 'tracker/Calc_link.html')
+
+def search(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+
+        submitbutton = request.GET.get('submit')
+
+        if query is not None:
+            lookups = Q(cascade__icontains=query)
+
+            results = Tracker.objects.filter(lookups).distinct()
+
+            context = {'results': results,
+                       'submitbutton': submitbutton}
+
+            return render(request, 'tracker/search.html', context)
+
+        else:
+            return render(request, 'tracker/search.html')
+
+    else:
+        return render(request, 'tracker/search.html')
+

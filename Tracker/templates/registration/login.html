@@ -4,27 +4,16 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<!--<h2>Login</h2>-->
-<!--<form method="post">-->
-  <!--{% csrf_token %}-->
-  <!--{{ form.as_p }}-->
-  <!--<button type="submit">Login</button>-->
-<!--</form>-->
 
 <section class="container login-form">
 		<section>
 			<form method="post" action="" role="login">
 				<div class="form-group">
                   {% csrf_token %}
-					<!--<input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />-->
-					<!--<input type='text' name='csrfmiddlewaretoken' value='{% csrf_token %}' required class="form-control" placeholder="Enter email or nickname" />-->
-					<!--<span class="glyphicon glyphicon-user"></span>-->
 				</div>
 
 				<div class="form-group">
                   {{ form.as_p }}
-					<!--<input type="password" name="password" value='{{ form.as_p }}' required class="form-control" placeholder="Enter password" />-->
-					<!--<span class="glyphicon glyphicon-lock"></span>-->
 				</div>
 
 				<button type="submit" name="go" class="btn btn-primary btn-block">Login Now</button>
