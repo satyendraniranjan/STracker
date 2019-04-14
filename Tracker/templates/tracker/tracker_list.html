@@ -1,75 +1,166 @@
 {% extends 'tracker/base.html' %}
 
 {% block content %}
-<html>
-<head>
-    <style>
-  table, th, td {
-    border: 1px solid Black;
-    border-collapse: collapse;
-  }
-  th, td {
-  padding: 5px;
-  text-align: left;
-  }
-  table.a {
-  background-color: #FFFFFF;
-  color: black;
-  table-layout: auto;
-  width: 100%;
-}
-table.b {
-  background-color: #FFFFFF;
-  color: black;
-  table-layout: auto;
-  width: 100%;
-}
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-.sticky + .content {
-  padding-top: 102px;
-}
-.download_link {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 20px;
-    color: turquoise;
-    text-decoration: underline;
-    }
-body { height: 1000px; }
-thead{
-    background-color:white;
-}
 
 
-    </style>
-</head>
-<body>
+   <script>
+			// requires jquery library
+			jQuery(document).ready(function() {
+			   jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');
+			 });
+		</script>
 
-<h2 style="text-align: center; font-size: 48px;">Tracker Detail of Today</h2>
-<a class="download_link" href="{% url 'some_view' %}">Export all users</a>
-<p>Search icon on a button:
-    <button type="button" class="btn btn-default"><a href="{% url 'search' %}" class="top-left"><span
-            class="glyphicon glyphicon-search"></span>Search</a></button>
-</p>
-<div class="header" id="table-container">
-    <table class="a" id="maintable">
-        <thead>
-        <tr>
-            <th>User Name</th>
-            <th>Cascade</th>
-            <th>Technology</th>
+<script>
+    window.setTimeout(function () {
+    location.href = "{{ tracker_list }}";
+}, 60000);
+// refresh/redirect after 5 seconds.
+
+
+</script>
+
+
+
+
+
+  <style>
+
+			.table-scroll {
+				position:relative;
+				max-width:1500px;
+				margin:auto;
+				overflow:hidden;
+				border:1px solid #000;
+				font size="6"
+			}
+
+			tr:nth-child(even) {
+			background-color: #FFFF00;
+			}
+
+			.table-wrap {
+				width:100%;
+				overflow:auto;
+				font size="6"
+				position:fixed;
+			}
+			.table-scroll table {
+				width:100%;
+				margin:auto;
+				border-collapse:separate;
+				border-spacing:0;
+				font size="6"
+
+			}
+			.table-scroll th, .table-scroll td {
+				padding:5px 10px;
+				border:1px solid #696969;
+				background:#fff;
+				white-space:nowrap;
+				vertical-align:top;
+				color:black;
+
+			}
+			.table-scroll thead{
+
+
+
+				background:#f9f9f9;
+				color:green;
+
+
+			}
+			.clone {
+				position:absolute;
+				top:0;
+				left:0;
+				pointer-events:none;
+
+			}
+			.clone th, .clone td {
+				visibility:hidden
+
+			}
+			.clone td, .clone th {
+				border-color:transparent
+
+			}
+			.clone tbody th {
+				visibility:visible;
+				color:green;
+
+			}
+			.clone .fixed-side {
+				border:1px solid #696969;
+				border-width: thin;
+				background:#eee;
+				visibility:visible;
+
+			}
+			.clone thead, .clone tfoot{background:blue;}
+
+			.fixed_header{
+				width: 400px;
+				table-layout: fixed;
+				border-collapse: collapse;
+
+			}
+
+			.fixed_header tbody{
+			  display:block;
+			  width: 100%;
+			  overflow: auto;
+			  height: 100px;
+			}
+
+			.fixed_header thead tr {
+			   display: block;
+			}
+
+			.fixed_header thead {
+			  background: #696969;
+			  color:black;
+
+			}
+
+			.fixed_header th, .fixed_header td {
+			  padding: 5px;
+			  text-align: left;
+			  width: 100px;
+
+			}
+
+            a:hover {
+               color: black;
+               font-size:120%;
+              }
+
+
+		</style>
+
+
+<p style="text-align: center; font-size: 20px;color: black;">Post-Com Tracker
+<a style="color: #0000A0;" class="download_link" href="{% url 'some_view' %}">Export</a></p>
+<!--<p>Search icon on a button:
+   &lt;!&ndash; <button type="button" class="btn btn-default"><a href="{% url 'search' %}" class="top-left"><span
+            class="glyphicon glyphicon-search"></span>Search</a></button>&ndash;&gt;-->
+
+<div  id="table-scroll" class="table-scroll">
+  <div  class="table-wrap">
+         <table class="main-table" style="font-size:11.5px; font-weight: bold; font-family: Arial; color:blue;">
+         <thead  style="color:blue; background-color: red;">
+            <tr>
+            <th class="fixed-side" scope="col">System Date</th>
+            <th class="fixed-side" scope="col">User Date</th>
+            <th class="fixed-side" scope="col">User Name</th>
+            <th class="fixed-side" scope="col">Cascade</th>
+            <th class="fixed-side" scope="col">Technology</th>
+            <th class="fixed-side" scope="col">Assignee</th>
             <th>Type</th>
             <th>Bandwidth Checked From LSM</th>
             <th>Market</th>
             <th>eNB/BTS</th>
             <th>LSM/BSM</th>
-            <th>Created Date</th>
             <th>CSMS</th>
             <th>FE Name</th>
             <th>Mode of Communication</th>
@@ -97,12 +188,28 @@ thead{
         {% for item in latest_tracker_list %}
         <tbody>
         <tr>
-            <td>{{item.created_date}}</td>
+            <th class="fixed-side" scope="col">{{item.created_date}}</th>
+            <th class="fixed-side" scope="col">{{item.Date}}</th>
             {% if user.is_authenticated %}
-            <td><h1><a href="{% url 'tracker_detail' pk=item.pk %}">{{ item.admin }}</a></h1></td>
+                {% if user == item.admin %}
+                    <th class="fixed-side" scope="col">{% if user.is_staff %}<a href="{% url 'tracker_edit1' pk=item.pk %}">{% endif %}{{ item.admin }}</a></th>
+                {% else %}
+                    <th class="fixed-side" scope="col">{% if user.is_staff %}<a href="{% url 'tracker_edit' pk=item.pk %}">{% endif %}{{ item.admin }}</a></th>
+                {% endif %}
             {% endif %}
-            <td>{{item.cascade}}</td>
-            <td>{{item.Technology}}</td>
+            <!--<th><a class="btn btn-default" href="{% url 'tracker_edit1' pk=item.pk %}"><p>Edit User: <span class="glyphicon glyphicon-pencil"></span></p></a></th>-->
+            <!--<th><a class="btn btn-default" href="{% url 'tracker_edit' pk=item.pk %}"><p>Edit Team:<span class="glyphicon glyphicon-pencil"></span></p></a></th>-->
+            <!--<th class="fixed-side" scope="col"><a href="{% url 'tracker_detail' pk=item.pk %}">{{ item.admin }}</a></th>-->
+
+            <th class="fixed-side" scope="col">{{item.cascade}}</th>
+            <th class="fixed-side" scope="col">{{item.Technology}}</th>
+            {% if user.is_authenticated %}
+                {% if user == item.admin %}
+                    <th class="fixed-side" scope="col"><a href="{% url 'tracker_edit1' pk=item.pk %}">{{item.Assignee}}</a></th>
+                {% else %}
+                    <th class="fixed-side" scope="col"><a href="{% url 'tracker_edit' pk=item.pk %}">{{item.Assignee}}</a></th>
+                {% endif %}
+            {% endif %}
             <td>{{item.Type}}
             <td>{{item.Bandwidth_Checked_From_LSM}}</td>
             <td>{{item.Market}}</td>
@@ -110,7 +217,7 @@ thead{
             <td>{{item.LSM}}</td>
             <td>{{item.CSMS}}</td>
             <td>{{item.FE_Name}}</td>
-            <td>{{item.Cic_Engineer}}</td>
+            <td>{{item.Mode_of_Communication}}</td>
             <td>{{item.Activity}}</td>
             <td>{{item.Activity_status}}</td>
             <td>{{item.Site_Status_pre_Activity}}</td>
@@ -130,44 +237,13 @@ thead{
             <td>{{item.Verify_Status}}</td>
             <td>{{item.Final_Comments}}</td>
         </tr>
+
         </tbody>
-        {% endfor %}
+       {% endfor %}
 
     </table>
-    <div id="bottom_anchor">
-    </div>
 </div>
-
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-function moveScroll(){
-    var scroll = $(window).scrollTop();
-    var anchor_top = $("#maintable").offset().top;
-    var anchor_bottom = $("#bottom_anchor").offset().top;
-    if (scroll>anchor_top && scroll<anchor_bottom) {
-    clone_table = $("#clone");
-    if(clone_table.length == 0){
-        clone_table = $("#maintable").clone();
-        clone_table.attr('id', 'clone');
-        clone_table.css({position:'fixed',
-                 'pointer-events': 'none',
-                 top:0});
-        clone_table.width($("#maintable").width());
-        $("#table-container").append(clone_table);
-        $("#clone").css({visibility:'hidden'});
-        $("#clone thead").css({'visibility':'visible','pointer-events':'auto'});
-    }
-    } else {
-    $("#clone").remove();
-    }
-}
-$(window).scroll(moveScroll);
-</script>
-
-</html>
-
+</div>
+</div>
 {% endblock %}
-<!--
-<a href="{% url 'tracker_detail' pk=item.pk %}">{{ item.admin }}</a>
-  <td><h1><a href="{% url 'tracker_detail' pk=item.pk %}">{{ item.admin }}</a></h1></td>-->
+
