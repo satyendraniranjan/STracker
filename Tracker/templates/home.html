@@ -1,11 +1,11 @@
 <!-- templates/home.html -->
-{% extends 'tracker/base.html' %}
+{% extends 'tracker/trackerbase.html' %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
 
-<div class="row" style="position: absolute; right: 15;">
+<!--<div class="row" style="position: absolute; right: 15;">
   {% if user.is_authenticated %}
 
   <p><a style="color: #d7dc16; text-decoration: underline;font-size: 13px;letter-spacing: 1;" href="{% url 'logout' %}">Logout</a></p>
@@ -17,18 +17,18 @@
     <p><a style="color: #d7dc16; text-decoration: underline;font-size: 13px;letter-spacing: 1;" href="{% url 'password_reset' %}">Password Reset</a></p>
   {% endif %}
   {% endif %}
-</div>
+</div>-->
 <br />
 
 <div class="row">
   {% if user.is_authenticated %}
-  <p style="text-align: center;font-size: 25px;font-weight: bold;">
+  <p style="text-align: center;font-size: 8px;font-weight: bold;">
    <!-- <marquee direction="right"><h2>Hi {{ user.username }}!</h2></marquee>-->
 
 </p>
   {% else %}
-  <p><h1>You are not logged in</h1></p>
-  <h1><a href="{% url 'login' %}">login</a></h1>
+    <!--<p><a style="text-align: center;font-size: 25px;font-weight: bold;">You are not logged in</a></p>
+    <a style="text-align: center;font-size: 25px;font-weight: bold;" href="{% url 'login' %}">login</a>-->
   <!--<p><a href="{% url 'signup' %}">SignUp</a></p>-->
 {% endif %}
 </div>
