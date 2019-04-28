@@ -85,7 +85,7 @@ def some_view(request):
 
 def Calc_link(request):
 
-    return render(request, 'tracker/Calc_link.html')
+    return render(request, 'tracker/about.html')
 
 def search(request):
     if request.method == 'GET':
