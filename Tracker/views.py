@@ -109,3 +109,6 @@ def search(request):
     else:
         return render(request, 'tracker/search.html')
 
+
+def about(request):
+    return render(request, 'tracker/about1.html')
