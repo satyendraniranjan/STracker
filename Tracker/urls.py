@@ -13,5 +13,6 @@ path('tracker/<int:pk>/teamedit/', views.tracker_edit1, name='tracker_edit1'),
 url(r'^export/csv/$', views.some_view, name='some_view'),
 path('tracker/calculator/', views.Calc_link, name='Calc_link'),
 path('tracker/search', views.search, name='search'),
+path('tracker/about', views.about, name='about'),  
 
 ]
