@@ -111,4 +111,4 @@ def search(request):
 
 
 def about(request):
-    return render(request, 'tracker/about1.html')
+    return render(request, 'tracker/about.html')
