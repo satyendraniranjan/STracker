@@ -5,13 +5,7 @@ Building a Web-Tracker using django
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
 
 ### Installing
 
@@ -27,7 +21,7 @@ The command above will create a directory called myvenv (or whatever name you ch
 Start your virtual environment by running:
 
 ```
-C:\Windows\System32\ToDo1> myvenv\Scripts\activate
+$ myvenv\Scripts\activate
 ```
 Now that you have your virtualenv started, you can install Django.
 Before we do that, we should make sure we have the latest version of pip, the software that we use to install Django:
@@ -38,8 +32,8 @@ Before we do that, we should make sure we have the latest version of pip, the so
 ###  Installing packages with requirements
 A requirements file keeps a list of dependencies to be installed using pip install:
 
-First create a requirements.txt file inside of the ToDo1/ folder. You do this by opening a new file in the code editor and then saving it as requirements.txt in the ToDo1/ folder.
-In your ToDo1/requirements.txt file you should add the following text:
+First create a requirements.txt file inside of the website/ folder. You do this by opening a new file in the code editor and then saving it as requirements.txt in the website/ folder.
+In your website/requirements.txt file you should add the following text:
 Django~=2.0.6
 Now, run pip install -r requirements.txt  to install Django.
 
@@ -56,7 +50,7 @@ command-line
 
 On Windows you should run the following command. 
 ```
-(myvenv) C:\Windows\System32\ToDo1> python manage.py runserver
+(myvenv) C:\Windows\System32\website> python manage.py runserver
 ```
 
 ## Built With
